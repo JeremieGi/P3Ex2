@@ -75,7 +75,7 @@ public class TaskRecyclerViewAdapter extends ListAdapter<Task, TaskRecyclerViewA
         }
 
         /**
-         *
+         * Solution perso
          * @return pourcentage de temps restants sur 10 jours
          */
         private int nGetProgressIndicator(Date dDueTime) {
@@ -106,6 +106,11 @@ public class TaskRecyclerViewAdapter extends ListAdapter<Task, TaskRecyclerViewA
             return nResult;
         }
 
+        /**
+         * pourcentage de temps restants sur 10 jours
+         * @param dDueTime : Date de fin
+         * @return
+         */
         private int nGetProgressIndicator_Solution(Date dDueTime) {
 
             Calendar calendarToday = Calendar.getInstance();
