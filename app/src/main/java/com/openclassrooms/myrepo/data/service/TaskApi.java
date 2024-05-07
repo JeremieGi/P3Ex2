@@ -53,6 +53,19 @@ public class TaskApi {
         calendar.add(Calendar.DAY_OF_YEAR, 1);
         tasks.add(new Task("Préparer une liste de courses",calendar.getTime()));
 
+        // Quelques taches en plus pour tester le comportement de l'affectation d'une valeur négative à la progress bar
+
+        calendar.add(Calendar.DAY_OF_YEAR, 1);
+        tasks.add(new Task("Lire cours",calendar.getTime()));
+
+        calendar.add(Calendar.DAY_OF_YEAR, 1);
+        tasks.add(new Task("Faire exo",calendar.getTime()));
+
+        calendar.add(Calendar.DAY_OF_YEAR, 1);
+        tasks.add(new Task("Aller courir",calendar.getTime()));
+
+
+
         return tasks;
     }
 }

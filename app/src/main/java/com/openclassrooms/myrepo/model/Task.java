@@ -1,6 +1,8 @@
 package com.openclassrooms.myrepo.model;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 import java.util.Objects;
 
 /**
@@ -70,5 +72,17 @@ public class Task {
     /** Setter la date limite */
     public void setDueTime(Date dueTime) {
         this.dueTime = dueTime;
+    }
+
+    /**
+     * Renvoie un message clair
+     * @return : par exemple "Temps limite : 24/08/2024"
+     *  */
+    public String getDueTimeString() {
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+        String sDueTime = dateFormat.format(dueTime);
+        return "Temps limite : "+sDueTime;
+
     }
 }

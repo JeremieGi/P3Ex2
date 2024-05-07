@@ -8,8 +8,14 @@ import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.progressindicator.LinearProgressIndicator;
 import com.openclassrooms.myrepo.R;
 import com.openclassrooms.myrepo.model.Task;
+
+import java.time.temporal.ChronoUnit;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Un adaptateur pour afficher la liste de tâches dans un RecyclerView.
@@ -41,6 +47,9 @@ public class TaskRecyclerViewAdapter extends ListAdapter<Task, TaskRecyclerViewA
     static class ViewHolder extends RecyclerView.ViewHolder {
 
         private final TextView factTextView;
+        private final TextView dueTimeTextView;
+        private final LinearProgressIndicator progressIndicator;
+
 
         /**
          * Constructeur du ViewHolder.
@@ -48,6 +57,8 @@ public class TaskRecyclerViewAdapter extends ListAdapter<Task, TaskRecyclerViewA
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             factTextView = itemView.findViewById(R.id.task_description);
+            dueTimeTextView = itemView.findViewById(R.id.task_duetime);
+            progressIndicator = itemView.findViewById(R.id.progress_horizontal);
         }
 
         /**
@@ -56,7 +67,65 @@ public class TaskRecyclerViewAdapter extends ListAdapter<Task, TaskRecyclerViewA
          * @param task La tâche à afficher.
          */
         public void bind(Task task) {
+
             factTextView.setText(task.getDescription());
+
+            dueTimeTextView.setText(task.getDueTimeString());
+
+            progressIndicator.setProgress(nGetProgressIndicator_Solution(task.getDueTime()));
+        }
+
+        /**
+         *
+         * @return pourcentage de temps restants sur 10 jours
+         */
+        private int nGetProgressIndicator(Date dDueTime) {
+
+            int nResult = 0; // Valeur de la progress bar de 0 à 100
+
+            /*
+            Nous voulons que la ProgressIndicator remplisse sa barre en fonction du nombre de jours restants.
+            Par exemple, si une tâche a une date limite dans 3 jours, la barre doit être remplie à 70 % (car elle a été créée il y a 7 jours).
+             */
+
+            int nTotal = 10;
+
+            Calendar calendar = Calendar.getInstance();
+            Date dToday = calendar.getTime();
+            dToday.setMinutes(0);
+
+            // Calcul du nombre de jours entre les deux dates
+            long lDifferenceEnMillis = dDueTime.getTime() - dToday.getTime();
+            long lNbJoursEntre = TimeUnit.DAYS.convert(lDifferenceEnMillis, TimeUnit.MILLISECONDS);
+            int nNbJoursEntre = (int)  Math.round(lNbJoursEntre);
+
+            // Ma solution donne toujours un jour de décalage car par exemple pour le jour J : lDifferenceEnMillis = -204
+            // dDueTime < dToday car dToday est initialisée après
+            // La solution du cours permet de neutraliser ce décalage avec .set(Calendar.MILLISECOND, 0);
+
+            nResult = (nTotal - nNbJoursEntre) * 10; // *10 pour renvoyer un nombre entre 0 et 100
+
+            return nResult;
+        }
+
+        private int nGetProgressIndicator_Solution(Date dDueTime) {
+
+            Calendar calendarToday = Calendar.getInstance();
+            calendarToday.set(Calendar.HOUR_OF_DAY, 0);
+            calendarToday.set(Calendar.MINUTE, 0);
+            calendarToday.set(Calendar.SECOND, 0);
+            calendarToday.set(Calendar.MILLISECOND, 0);
+
+            Calendar calendarDueTime = Calendar.getInstance();
+            calendarDueTime.setTime(dDueTime);
+            calendarDueTime.set(Calendar.HOUR_OF_DAY, 0);
+            calendarDueTime.set(Calendar.MINUTE, 0);
+            calendarDueTime.set(Calendar.SECOND, 0);
+            calendarDueTime.set(Calendar.MILLISECOND, 0);
+
+            int daysDifference = (int) ((calendarDueTime.getTimeInMillis() - calendarToday.getTimeInMillis()) / (24 * 60 * 60 * 1000));
+
+            return 100 - (daysDifference * 10);
         }
     }
 
