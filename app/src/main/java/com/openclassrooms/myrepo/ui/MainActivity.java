@@ -16,6 +16,8 @@ import java.util.List;
  */
 public class MainActivity extends AppCompatActivity {
 
+    // test
+
     private MainViewModel viewModel;
     private TaskRecyclerViewAdapter adapter;
 
