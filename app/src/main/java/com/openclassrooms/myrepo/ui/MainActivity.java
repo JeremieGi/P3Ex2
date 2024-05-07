@@ -49,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * Met à jour la liste de tâches affichée dans l'adaptateur.
+     * Appelé via l'observer
      *
      * @param tasks La liste mise à jour de tâches.
      */
