@@ -12,7 +12,6 @@ import com.google.android.material.progressindicator.LinearProgressIndicator;
 import com.openclassrooms.myrepo.R;
 import com.openclassrooms.myrepo.model.Task;
 
-import java.time.temporal.ChronoUnit;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
@@ -81,7 +80,7 @@ public class TaskRecyclerViewAdapter extends ListAdapter<Task, TaskRecyclerViewA
          */
         private int nGetProgressIndicator(Date dDueTime) {
 
-            int nResult = 0; // Valeur de la progress bar de 0 à 100
+            int nResult; // Valeur de la progress bar de 0 à 100
 
             /*
             Nous voulons que la ProgressIndicator remplisse sa barre en fonction du nombre de jours restants.
@@ -92,7 +91,6 @@ public class TaskRecyclerViewAdapter extends ListAdapter<Task, TaskRecyclerViewA
 
             Calendar calendar = Calendar.getInstance();
             Date dToday = calendar.getTime();
-            dToday.setMinutes(0);
 
             // Calcul du nombre de jours entre les deux dates
             long lDifferenceEnMillis = dDueTime.getTime() - dToday.getTime();

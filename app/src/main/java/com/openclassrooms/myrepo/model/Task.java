@@ -30,15 +30,15 @@ public class Task {
     public String getDescription() {
         return description;
     }
-
-    /**
-     * Modifie la description de la tâche.
-     *
-     * @param description La nouvelle description de la tâche.
-     */
-    public void setDescription(String description) {
-        this.description = description;
-    }
+//
+//    /**
+//     * Modifie la description de la tâche.
+//     *
+//     * @param description La nouvelle description de la tâche.
+//     */
+//    public void setDescription(String description) {
+//        this.description = description;
+//    }
 
     /**
      * Vérifie si deux objets Task sont égaux en comparant leurs descriptions et leurs dates d'échéance.
@@ -69,10 +69,10 @@ public class Task {
         return dueTime;
     }
 
-    /** Setter la date limite */
-    public void setDueTime(Date dueTime) {
-        this.dueTime = dueTime;
-    }
+//    /** Setter la date limite */
+//    public void setDueTime(Date dueTime) {
+//        this.dueTime = dueTime;
+//    }
 
     /**
      * Renvoie un message clair
